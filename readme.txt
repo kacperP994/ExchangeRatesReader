@@ -6,13 +6,13 @@ Stack:
 Launching the App
 
 Prequisites
-  Visual Studio 17 or higher,
+  Visual Studio 2019 or higher,
   MS SQL server / MS SQL Express Server
   Internet Connection
 
 1. (optionally)
 
-There is a pre-build frontend bundle in ExchangeRatesReader/wwwroot folder. However, it can be rebuild. The most comfortable way is by using
+There is a pre-build frontend bundle in ExchangeRatesReader/wwwroot folder. However, it can be rebuilt. The most comfortable way is with
 buildFrontend.ps1 script. It checks the required software to build angular app, installs packages and builds the bundles into the wwwroot folder.
 
 2. Configuration (required)

@@ -1,0 +1,33 @@
+<div class="main-container">
+
+  <button type="button" class="btn btn-primary" (click)="onLoadRates()">Wczytaj najnowsze kursy walut</button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Kod</th>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Kurs</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="data && data.length > 0">
+      <tr *ngFor="let obj of data">
+        <td>{{obj.date | date:'yyyy-MM-dd'}}</td>
+        <td>{{obj.currencyCode}}</td>
+        <td >{{obj.currencyName}}</td>
+        <td>{{obj.value | number:'1.4-12'}}</td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="!data || data.length === 0">
+      <tr>
+        <td colspan="4"> BRAK ZAPISANYCH KURSÓW WALUT</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+

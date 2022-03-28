@@ -15,13 +15,11 @@ namespace ExchangeRatesReader.Controllers
     [Route("api/[controller]")]
     public class RatesController : ControllerBase
     {
-        private readonly ILogger<RatesController> _logger;
 
         private readonly IRatesService _ratesService;
 
-        public RatesController(ILogger<RatesController> logger, IRatesService exchangeRatesProvider)
+        public RatesController(IRatesService exchangeRatesProvider)
         {
-            _logger = logger;
             _ratesService = exchangeRatesProvider;
         }
 

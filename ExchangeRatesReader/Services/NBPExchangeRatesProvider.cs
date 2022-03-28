@@ -1,10 +1,12 @@
 ﻿using ExchangeRatesReader.Models.Dto;
 using ExchangeRatesReader.Models.Entities;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace ExchangeRatesReader.Services
@@ -13,11 +15,12 @@ namespace ExchangeRatesReader.Services
     {
         private readonly HttpClient _client;
 
-        //todo logger do logowania bledow z api gdy status nieok
-        //format json wyniesc do startup albo i nie
+        private readonly ILogger<NBPExchangeRatesProvider> _logger;
 
-        public NBPExchangeRatesProvider(HttpClient client)
+
+        public NBPExchangeRatesProvider(HttpClient client, ILogger<NBPExchangeRatesProvider> logger)
         {
+            _logger = logger;
             _client = client;
         }
 
@@ -31,8 +34,9 @@ namespace ExchangeRatesReader.Services
                 return ParseRatesResponse(content);
             }
 
+            _logger.LogError("Error in nbp api response. status code: {code}", response.StatusCode);
 
-            throw new NotImplementedException();
+            throw new ExternalException();
         }
 
         public List<Rate> ParseRatesResponse(string content)

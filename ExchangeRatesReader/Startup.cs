@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ExchangeRatesReader
 {
@@ -50,6 +53,20 @@ namespace ExchangeRatesReader
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseExceptionHandler(exceptionHandlerApp =>
+            {
+                exceptionHandlerApp.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType = Text.Plain;
+
+                    await context.Response.WriteAsync("An internal application error occurred.");
+                });
+
+
+                
+            });
 
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
